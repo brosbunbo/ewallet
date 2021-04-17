@@ -13,6 +13,11 @@ trait CanBeFrozen
         return $this->canBeFrozen;
     }
 
+    public function ifIsFrozen(): bool
+    {
+        return $this->isFrozen;
+    }
+
     public function freeze(): void
     {
         $this->isFrozen = true;

@@ -18,7 +18,8 @@ $user->setDefaultAccount($cashAccount['uuid']);
 
 // 4. The user can freeze any of account except the virtual one.
 // $user->freezeAccount($creditAccount['uuid']);
-$user->freezeAccount($cashAccount['uuid']);
+$vndUuid = $user->addAccount('VND');
+$user->freezeAccount($vndUuid);
 
 // 5. The user can add more accounts in any of the currency.
 $user->addAccount('EUR');

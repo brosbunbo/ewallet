@@ -44,6 +44,10 @@ class User
         if (! isset($this->accounts[$source])) {
             throw new \Exception("Invalid account {$source}. Available: " . json_encode(array_keys($this->accounts)));
         }
+
+        if ($this->accounts[$source]->ifIsFrozen()) {
+            throw new \Exception("Account {$source} is frozen");
+        }
     }
 
     // 3. The user can set any of account except virtual one as a default account.
@@ -73,7 +77,7 @@ class User
     }
 
     // 5. The user can add more accounts in any of the currency.
-    public function addAccount(string $currency): void
+    public function addAccount(string $currency): string
     {
         $account = new CashAccount($currency);
         $source = $account->getUuid();
@@ -81,6 +85,8 @@ class User
         $this->accounts[$source] = $account;
 
         $this->log('Add account: '. $currency);
+
+        return $source;
     }
 
     // 6. It should be possible to list all of the accounts of the user and get a balance of any account.
