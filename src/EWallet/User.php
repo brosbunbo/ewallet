@@ -146,6 +146,10 @@ class User
     {
         $this->validateAccount($source);
 
+        if ($amount > $this->withdrawAvailable) {
+            throw new \Exception('Withdraw limit exceeded');
+        }
+
         // 10. It is not possible to do money withdrawal from virtual currency account
         if (! $this->accounts[$source]->ifCanWithdraw()) {
             throw new \Exception('Can not withdraw from this account');
