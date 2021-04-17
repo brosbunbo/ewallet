@@ -1,0 +1,10 @@
+{
+    "require": {
+        "ramsey/uuid": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "EWallet\\": "EWallet/"
+        }
+    }
+}
