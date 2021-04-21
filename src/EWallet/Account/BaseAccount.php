@@ -39,6 +39,10 @@ class BaseAccount implements AccountInterface
 
     public function increaseBalance(float $amount): float
     {
+        if ($amount <= 0) {
+            throw new \Exception('Amount must be positive');
+        }
+
         $this->balance += $amount;
 
         return $this->balance;
@@ -46,6 +50,10 @@ class BaseAccount implements AccountInterface
 
     public function decreaseBalance(float $amount): float
     {
+        if ($amount <= 0) {
+            throw new \Exception('Amount must be positive');
+        }
+
         if ($this->balance < $amount) {
             throw new \Exception('Invalid balance amount.');
         }

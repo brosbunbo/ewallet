@@ -5,7 +5,7 @@ namespace EWallet;
 use Ramsey\Uuid\Uuid;
 
 use EWallet\Account\{
-    BaseAccount,
+    AccountInterface,
     CashAccount,
     CreditAccount
 };
@@ -41,7 +41,7 @@ class User
 
     protected function validateAccount(string $source): void
     {
-        if (! isset($this->accounts[$source])) {
+        if (! isset($this->accounts[$source]) || ! ($this->accounts[$source] instanceof AccountInterface)) {
             throw new \Exception("Invalid account {$source}. Available: " . json_encode(array_keys($this->accounts)));
         }
 
@@ -137,6 +137,10 @@ class User
     {
         $this->validateAccount($source);
         $this->validateAccount($target);
+
+        if ($source === $target) {
+            throw new \Exception('Source and target account must not be the same');
+        }
 
         $this->accounts[$source]->decreaseBalance($amount);
 
