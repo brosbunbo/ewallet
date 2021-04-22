@@ -8,5 +8,5 @@
 ```
 composer install
 
-php test.php
+php ewallet
 ```
